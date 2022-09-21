@@ -1,4 +1,4 @@
-﻿namespace IntroLab
+﻿namespace Q2
 {
     partial class Form1
     {

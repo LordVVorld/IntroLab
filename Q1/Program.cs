@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Q1
 {
-    class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Главная точка входа для приложения.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            SquareMatrix matrix = new SquareMatrix();
-            Console.WriteLine("Сгенерированная матрица: ");
-            matrix.Print();
-            double minLeft = matrix.MinLeftOfAuxDiagonal();
-            double maxRight = matrix.MaxRightOfAuxDiagonal();
-            Console.WriteLine("Наименьшее значение слева от побочной диагонали: {0}", minLeft);
-            Console.WriteLine("Наибольшее значение справа от побочной диагонали: {0}", maxRight);
-            Console.WriteLine("Среднее геометрическое этих значений: {0}", GeometricMean(minLeft, maxRight));
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Q1View());
         }
-
-        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Sqrt(firstNumber * secondNumber);
     }
 }
