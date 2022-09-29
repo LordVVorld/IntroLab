@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Q2
 {
-    public partial class Form1 : Form
+    public partial class Q2View : Form
     {
-        public Form1()
+        public Q2View()
         {
             InitializeComponent();
         }

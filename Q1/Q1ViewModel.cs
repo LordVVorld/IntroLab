@@ -1,6 +1,6 @@
-﻿using ReactiveUI;
+﻿using Mommo.Data;
+using ReactiveUI;
 using System.Reactive;
-using System.Windows.Forms;
 
 namespace Q1
 {
@@ -10,7 +10,18 @@ namespace Q1
         public bool ManualInputed
         {
             get => _manualInputed;
-            set => this.RaiseAndSetIfChanged(ref _manualInputed, value);
+            set
+            {
+                Matrix = value ? new ArrayDataView(new string[5, 5]) : null;
+                this.RaiseAndSetIfChanged(ref _manualInputed, value);
+            }
+        }
+
+        private int _matrixRank;
+        public int MatrixRank
+        {
+            get => _matrixRank;
+            set => this.RaiseAndSetIfChanged(ref _matrixRank, value);
         }
 
         private string _minLeft;
@@ -34,8 +45,8 @@ namespace Q1
             set => this.RaiseAndSetIfChanged(ref _geometricMean, value);
         }
 
-        private DataGridView _matrix;
-        public DataGridView Matrix
+        private ArrayDataView _matrix;
+        public ArrayDataView Matrix
         {
             get => _matrix;
             set => this.RaiseAndSetIfChanged(ref _matrix, value);

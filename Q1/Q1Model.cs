@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Mommo.Data;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Q1
@@ -7,19 +10,8 @@ namespace Q1
     {
         public class SquareMatrix
         {
-            private int _rank;
-            public int Rank
-            {
-                get => _rank;
-                set => _rank = value;
-            }
-
-            private double[,] _values;
-            public double[,] Values
-            {
-                get => _values;
-                set => _values = value;
-            }
+            public int Rank { get; set; }
+            public double[,] Values { get; set; }
 
             public SquareMatrix()
             {
@@ -30,21 +22,29 @@ namespace Q1
                 {
                     for (int columnIndex = 0; columnIndex < Rank; columnIndex++)
                     {
-                        Values[rowIndex, columnIndex] = Math.Round(randomizer.NextDouble(), 2);
+                        Values[rowIndex, columnIndex] = Math.Round(randomizer.NextDouble(), 3);
                     }
                 }
             }
 
-            public SquareMatrix(DataGridView matrix)
+            public SquareMatrix(ArrayDataView matrix)
             {
-                Rank = matrix.RowCount;
-                for (int columnIndex = 0; columnIndex < matrix.ColumnCount; columnIndex++)
+                
+                Rank = 5;
+                ArrayList array = new ArrayList();
+                for (int index = 0; index < matrix.Count; index++)
                 {
-                    for (int rowIndex = 0; rowIndex < matrix.RowCount; rowIndex++)
-                    {
-                        Values[rowIndex, columnIndex] = double.Parse(matrix[rowIndex, columnIndex].Value.ToString());
-                    }
+                    array.Add(matrix[index]);
                 }
+                Array array1 = array.ToArray();
+                Values = (double[,])array1;
+                //for (int columnIndex = 0; columnIndex < Rank; columnIndex++)
+                //{
+                    //for (int rowIndex = 0; rowIndex < Rank; rowIndex++)
+                    //{
+                        //Values[rowIndex, columnIndex] = double.Parse(matrix[rowIndex, columnIndex].Value.ToString());
+                    //}
+                //}
             }
 
             public double MinLeftOfAuxDiagonal()
@@ -86,25 +86,9 @@ namespace Q1
                 return maxVal;
             }
         }
-        
-        public static double GeometricMean(double firstNumber, double secondNumber)
-        {
-            return Math.Sqrt(firstNumber * secondNumber);
-        }
 
-        public static DataGridView MatrixToGrid(SquareMatrix matrix)
-        {
-            DataGridView grid = new DataGridView();
-            grid.RowCount = matrix.Rank;
-            grid.ColumnCount = matrix.Rank;
-            for (int columnIndex = 0; columnIndex < grid.ColumnCount; columnIndex++)
-            {
-                for (int rowIndex = 0; rowIndex < grid.RowCount; rowIndex++)
-                {
-                    grid[columnIndex, rowIndex].Value = matrix.Values[columnIndex, rowIndex];
-                }
-            }
-            return grid;
-        }
+        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Sqrt(firstNumber * secondNumber);
+
+        public static ArrayDataView MatrixToGrid(SquareMatrix matrix) => new ArrayDataView(matrix.Values);
     }
 }

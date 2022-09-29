@@ -8,17 +8,14 @@ namespace Q1
         public Q1View()
         {
             InitializeComponent();
-            matrixGrid.Rows.Add(5);
-            
-
-            this.WhenActivated(a =>
+            this.WhenActivated(action =>
             {
-                a(this.Bind(ViewModel, vm => vm.ManualInputed, v => v.manualInputButton.Checked));
-                a(this.Bind(ViewModel, vm => vm.Matrix, v => v.matrixGrid));
-                a(this.OneWayBind(ViewModel, vm => vm.MinLeft, v => v.minLeftBox.Text));
-                a(this.OneWayBind(ViewModel, vm => vm.MaxRight, v => v.maxRightBox.Text));
-                a(this.OneWayBind(ViewModel, vm => vm.GeometricMean, v => v.geometricMeanBox.Text));
-                a(this.BindCommand(ViewModel, vm => vm.Start, v => v.startButton));
+                action(this.Bind(ViewModel, vm => vm.ManualInputed, v => v.manualInputButton.Checked));
+                action(this.Bind(ViewModel, vm => vm.Matrix, v => v.matrixGrid.DataSource));
+                action(this.OneWayBind(ViewModel, vm => vm.MinLeft, v => v.minLeftBox.Text));
+                action(this.OneWayBind(ViewModel, vm => vm.MaxRight, v => v.maxRightBox.Text));
+                action(this.OneWayBind(ViewModel, vm => vm.GeometricMean, v => v.geometricMeanBox.Text));
+                action(this.BindCommand(ViewModel, vm => vm.Start, v => v.startButton));
             });
             ViewModel = new Q1ViewModel();
         }
