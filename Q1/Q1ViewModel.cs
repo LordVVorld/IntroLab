@@ -1,6 +1,8 @@
-﻿using Mommo.Data;
-using ReactiveUI;
+﻿using ReactiveUI;
+using System;
+using System.Data;
 using System.Reactive;
+using System.Windows.Forms;
 
 namespace Q1
 {
@@ -10,11 +12,7 @@ namespace Q1
         public bool ManualInputed
         {
             get => _manualInputed;
-            set
-            {
-                Matrix = value ? new ArrayDataView(new string[5, 5]) : null;
-                this.RaiseAndSetIfChanged(ref _manualInputed, value);
-            }
+            set => this.RaiseAndSetIfChanged(ref _manualInputed, value);
         }
 
         private int _matrixRank;
@@ -24,29 +22,29 @@ namespace Q1
             set => this.RaiseAndSetIfChanged(ref _matrixRank, value);
         }
 
-        private string _minLeft;
-        public string MinLeft
+        private double _minLeft;
+        public double MinLeft
         {
             get => _minLeft;
             set => this.RaiseAndSetIfChanged(ref _minLeft, value);
         }
 
-        private string _maxRight;
-        public string MaxRight
+        private double _maxRight;
+        public double MaxRight
         {
             get => _maxRight;
             set => this.RaiseAndSetIfChanged(ref _maxRight, value);
         }
 
-        private string _geometricMean;
-        public string GeometricMean
+        private double _geometricMean;
+        public double GeometricMean
         {
             get => _geometricMean;
             set => this.RaiseAndSetIfChanged(ref _geometricMean, value);
         }
 
-        private ArrayDataView _matrix;
-        public ArrayDataView Matrix
+        private DataTable _matrix = Q1Model.CreateUIInputTable();
+        public DataTable Matrix
         {
             get => _matrix;
             set => this.RaiseAndSetIfChanged(ref _matrix, value);
@@ -54,13 +52,20 @@ namespace Q1
 
         public Q1ViewModel()
 		{
-            Start = ReactiveCommand.Create(()=>
+            Start = ReactiveCommand.Create(() =>
             {
-                var matrix = ManualInputed? new Q1Model.SquareMatrix(Matrix) : new Q1Model.SquareMatrix();
-                Matrix = Q1Model.MatrixToGrid(matrix);
-                MinLeft = matrix.MinLeftOfAuxDiagonal().ToString();
-                MaxRight = matrix.MaxRightOfAuxDiagonal().ToString();
-                GeometricMean = Q1Model.GeometricMean(double.Parse(MaxRight), double.Parse(MinLeft)).ToString("0.000");
+                try
+                {
+                    var matrix = ManualInputed ? new Q1Model.SquareMatrix(Matrix) : new Q1Model.SquareMatrix();
+                    Matrix = Q1Model.MatrixValuesToDataTable(matrix);
+                    MinLeft = matrix.MinLeftOfAuxDiagonal();
+                    MaxRight = matrix.MaxRightOfAuxDiagonal();
+                    GeometricMean = Q1Model.GeometricMean(MaxRight, MinLeft);
+                }
+                catch(Exception e)
+                {
+                    MessageBox.Show(e.Message, "Ошибка.");
+                }
             });
         }
 

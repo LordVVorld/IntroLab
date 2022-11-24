@@ -1,8 +1,5 @@
-﻿using Mommo.Data;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System;
+using System.Data;
 
 namespace Q1
 {
@@ -10,51 +7,35 @@ namespace Q1
     {
         public class SquareMatrix
         {
-            public int Rank { get; set; }
+            public readonly int rank = 5;
             public double[,] Values { get; set; }
 
-            public SquareMatrix()
+            public SquareMatrix(DataTable matrix = null)
             {
-                var randomizer = new Random();
-                Rank = 5;
-                Values = new double[Rank, Rank];
-                for (int rowIndex = 0; rowIndex < Rank; rowIndex++)
+                if (!(matrix is null))
                 {
-                    for (int columnIndex = 0; columnIndex < Rank; columnIndex++)
+                    Values = DataTableToMatrixValues(matrix);
+                    return;
+                }
+                var randomizer = new Random();
+                Values = new double[rank, rank];
+                for (int rowIndex = 0; rowIndex < rank; ++rowIndex)
+                {
+                    for (int columnIndex = 0; columnIndex < rank; ++columnIndex)
                     {
                         Values[rowIndex, columnIndex] = Math.Round(randomizer.NextDouble(), 3);
                     }
                 }
             }
 
-            public SquareMatrix(ArrayDataView matrix)
-            {
-                
-                Rank = 5;
-                ArrayList array = new ArrayList();
-                for (int index = 0; index < matrix.Count; index++)
-                {
-                    array.Add(matrix[index]);
-                }
-                Array array1 = array.ToArray();
-                Values = (double[,])array1;
-                //for (int columnIndex = 0; columnIndex < Rank; columnIndex++)
-                //{
-                    //for (int rowIndex = 0; rowIndex < Rank; rowIndex++)
-                    //{
-                        //Values[rowIndex, columnIndex] = double.Parse(matrix[rowIndex, columnIndex].Value.ToString());
-                    //}
-                //}
-            }
-
             public double MinLeftOfAuxDiagonal()
             {
                 double minVal = Values[0, 0];
                 int auxilaryColumn = 1;
-                for (int rowIndex = 0; rowIndex < Rank; rowIndex++)
+                for (int rowIndex = 0; rowIndex < rank; rowIndex++)
                 {
-                    int actualColumn = Rank - auxilaryColumn;
-                    for (int columnIndex = actualColumn; columnIndex > 0; columnIndex--)
+                    int actualColumn = rank - auxilaryColumn - 1;
+                    for (int columnIndex = actualColumn; columnIndex >= 0; columnIndex--)
                     {
                         if (Values[rowIndex, columnIndex] < minVal)
                         {
@@ -68,27 +49,87 @@ namespace Q1
 
             public double MaxRightOfAuxDiagonal()
             {
-                int lastIndex = Rank - 1;
+                int lastIndex = rank - 1;
                 double maxVal = Values[lastIndex, lastIndex];
-                int auxilaryColumn = Rank - 1;
-                for (int rowIndex = lastIndex; rowIndex > 0; rowIndex--)
+                int auxilaryColumn = 0; //0
+                for (int rowIndex = lastIndex; rowIndex > 0; --rowIndex)
                 {
                     int actualColumn = auxilaryColumn + 1;
-                    for (int columnIndex = actualColumn; columnIndex < Rank; columnIndex++)
+                    for (int columnIndex = actualColumn; columnIndex < rank; ++columnIndex)
                     {
                         if (Values[rowIndex, columnIndex] > maxVal)
                         {
                             maxVal = Values[rowIndex, columnIndex];
                         }
                     }
-                    --auxilaryColumn;
+                    ++auxilaryColumn;
                 }
                 return maxVal;
             }
         }
 
-        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Sqrt(firstNumber * secondNumber);
+        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Round(Math.Sqrt(firstNumber * secondNumber), 5);
 
-        public static ArrayDataView MatrixToGrid(SquareMatrix matrix) => new ArrayDataView(matrix.Values);
+        private static double[,] DataTableToMatrixValues(DataTable table)
+        {
+            double[,] matrix = new double[5,5];
+            for (int rowIndex = 0; rowIndex < table.Rows.Count; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++)
+                {
+                    try
+                    {
+                        matrix[rowIndex, columnIndex] = double.Parse(table.Rows[rowIndex][columnIndex].ToString());
+                    }
+                    catch
+                    {
+                        throw new ArgumentException(string.Format("Некорректное значение в ячейке [{0},{1}]", rowIndex + 1, columnIndex + 1));
+                    }
+                }
+            }
+            return matrix;
+        }
+
+        public static DataTable MatrixValuesToDataTable(SquareMatrix matrix)
+        {
+            DataTable table = new DataTable();
+            for (int rowIndex = 0; rowIndex < matrix.rank; rowIndex++)
+            {
+                table.Rows.Add();
+                table.Columns.Add();
+            }
+            for (int rowIndex = 0; rowIndex < matrix.rank; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < matrix.rank; columnIndex++)
+                {
+                    table.Rows[rowIndex][columnIndex] = matrix.Values[rowIndex, columnIndex];
+                }
+            }
+            return table;
+        }
+
+        public static DataTable CreateUIInputTable(DataTable table = null)
+        {
+            if (table is null)
+            {
+                table = new DataTable();
+                for (int rowIndex = 0; rowIndex < 5; rowIndex++)
+                {
+                    table.Rows.Add();
+                    table.Columns.Add();
+                }
+            }
+            for (int rowIndex = 0; rowIndex < 5; rowIndex++)
+            {
+                for (int columnIndex = 0; columnIndex < 5; columnIndex++)
+                {
+                    if (table.Rows[rowIndex][columnIndex] is null)
+                    {
+                        table.Rows[rowIndex][columnIndex] = "";
+                    }
+                }
+            }
+            return table;
+        }
     }
 }

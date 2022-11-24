@@ -36,10 +36,6 @@
     <Reference Include="DynamicData, Version=7.10.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DynamicData.7.10.2\lib\net462\DynamicData.dll</HintPath>
     </Reference>
-    <Reference Include="Mommo.Data, Version=1.0.1467.7686, Culture=neutral">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>DLLS\Mommo.Data.dll</HintPath>
-    </Reference>
     <Reference Include="ReactiveUI, Version=18.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ReactiveUI.18.3.1\lib\net472\ReactiveUI.dll</HintPath>
     </Reference>
@@ -108,9 +104,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DLLS\Mommo.Data.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

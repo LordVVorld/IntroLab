@@ -27,5 +27,7 @@ namespace Q1
         }
 
         public Q1ViewModel ViewModel { get; set; }
+
+        private void ColumnAdded(object sender, DataGridViewColumnEventArgs e) => ((DataGridViewTextBoxColumn)e.Column).MaxInputLength = 10;
     }
 }

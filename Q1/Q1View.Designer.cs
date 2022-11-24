@@ -92,7 +92,7 @@
             // 
             // startButton
             // 
-            this.startButton.Location = new System.Drawing.Point(450, 54);
+            this.startButton.Location = new System.Drawing.Point(650, 57);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(75, 23);
             this.startButton.TabIndex = 9;
@@ -107,7 +107,7 @@
             this.asnwerBox.Controls.Add(maxRightLabel);
             this.asnwerBox.Controls.Add(this.minLeftBox);
             this.asnwerBox.Controls.Add(minLeftLabel);
-            this.asnwerBox.Location = new System.Drawing.Point(327, 83);
+            this.asnwerBox.Location = new System.Drawing.Point(527, 86);
             this.asnwerBox.Name = "asnwerBox";
             this.asnwerBox.Size = new System.Drawing.Size(262, 110);
             this.asnwerBox.TabIndex = 7;
@@ -142,7 +142,7 @@
             // 
             this.inputPrincipleBox.Controls.Add(this.manualInputButton);
             this.inputPrincipleBox.Controls.Add(this.autoGenerationButton);
-            this.inputPrincipleBox.Location = new System.Drawing.Point(327, 9);
+            this.inputPrincipleBox.Location = new System.Drawing.Point(527, 12);
             this.inputPrincipleBox.Name = "inputPrincipleBox";
             this.inputPrincipleBox.Size = new System.Drawing.Size(117, 68);
             this.inputPrincipleBox.TabIndex = 6;
@@ -203,12 +203,13 @@
             this.matrixGrid.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Mookmania", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.matrixGrid.RowTemplate.DefaultCellStyle.Format = "N3";
             this.matrixGrid.RowTemplate.DefaultCellStyle.NullValue = null;
-            this.matrixGrid.RowTemplate.Height = 60;
+            this.matrixGrid.RowTemplate.Height = 100;
             this.matrixGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.matrixGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.matrixGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.matrixGrid.Size = new System.Drawing.Size(300, 300);
+            this.matrixGrid.Size = new System.Drawing.Size(500, 500);
             this.matrixGrid.TabIndex = 5;
+            this.matrixGrid.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnAdded);
             // 
             // squareMatrixBindingSource
             // 
@@ -218,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(655, 360);
+            this.ClientSize = new System.Drawing.Size(799, 536);
             this.Controls.Add(this.startButton);
             this.Controls.Add(matrixLabel);
             this.Controls.Add(this.asnwerBox);
