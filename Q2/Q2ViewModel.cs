@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ReactiveUI;
 
-namespace Q2
+namespace IntroLab
 {
-    internal class Q2ViewModel
+    public class Q2ViewModel : ReactiveObject
     {
+
+        public Q2ViewModel()
+        {
+            
+        }
     }
 }
+
+

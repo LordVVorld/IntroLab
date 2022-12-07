@@ -3,6 +3,7 @@ using System;
 using System.Data;
 using System.Reactive;
 using System.Windows.Forms;
+using static Q1.Q1Model;
 
 namespace Q1
 {
@@ -43,7 +44,7 @@ namespace Q1
             set => this.RaiseAndSetIfChanged(ref _geometricMean, value);
         }
 
-        private DataTable _matrix = Q1Model.CreateUIInputTable();
+        private DataTable _matrix = CreateUIInputTable();
         public DataTable Matrix
         {
             get => _matrix;
@@ -54,19 +55,13 @@ namespace Q1
 		{
             Start = ReactiveCommand.Create(() =>
             {
-                try
-                {
-                    var matrix = ManualInputed ? new Q1Model.SquareMatrix(Matrix) : new Q1Model.SquareMatrix();
-                    Matrix = Q1Model.MatrixValuesToDataTable(matrix);
-                    MinLeft = matrix.MinLeftOfAuxDiagonal();
-                    MaxRight = matrix.MaxRightOfAuxDiagonal();
-                    GeometricMean = Q1Model.GeometricMean(MaxRight, MinLeft);
-                }
-                catch(Exception e)
-                {
-                    MessageBox.Show(e.Message, "Ошибка.");
-                }
+                var matrix = ManualInputed ? new SquareMatrix(Matrix) : new SquareMatrix();
+                Matrix = MatrixValuesToDataTable(matrix);
+                MinLeft = matrix.MinLeftOfAuxDiagonal();
+                MaxRight = matrix.MaxRightOfAuxDiagonal();
+                GeometricMean = GeometricMean(MaxRight, MinLeft);
             });
+            Start.ThrownExceptions.Subscribe(error => MessageBox.Show(error.Message, "Внимание!"));
         }
 
         public ReactiveCommand<Unit, Unit> Start { get; private set; }
