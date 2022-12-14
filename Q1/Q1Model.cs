@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using static Q1.Q1Model;
 
 namespace Q1
 {
@@ -10,14 +11,13 @@ namespace Q1
             public readonly int rank = 5;
             public double[,] Values { get; set; }
 
-            public SquareMatrix(DataTable matrix = null)
+            public SquareMatrix()
             {
-                if (!(matrix is null))
-                {
-                    Values = DataTableToMatrixValues(matrix);
-                    return;
-                }
-                var randomizer = new Random();
+
+            }
+
+            public SquareMatrix(Random randomizer)
+            {
                 Values = new double[rank, rank];
                 for (int rowIndex = 0; rowIndex < rank; ++rowIndex)
                 {
@@ -28,7 +28,7 @@ namespace Q1
                 }
             }
 
-            public double MinLeftOfAuxDiagonal()
+            public double MinLeftOfAuxDiag()
             {
                 double minVal = Values[0, 0];
                 int auxilaryColumn = 1;
@@ -47,11 +47,11 @@ namespace Q1
                 return minVal;
             }
 
-            public double MaxRightOfAuxDiagonal()
+            public double MaxRightOfAuxDiag()
             {
                 int lastIndex = rank - 1;
                 double maxVal = Values[lastIndex, lastIndex];
-                int auxilaryColumn = 0; //0
+                int auxilaryColumn = 0;
                 for (int rowIndex = lastIndex; rowIndex > 0; --rowIndex)
                 {
                     int actualColumn = auxilaryColumn + 1;
@@ -68,29 +68,33 @@ namespace Q1
             }
         }
 
-        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Round(Math.Sqrt(firstNumber * secondNumber), 5);
+        public static double GeometricMean(double firstNumber, double secondNumber) => Math.Sqrt(firstNumber * secondNumber);
+    }
 
-        private static double[,] DataTableToMatrixValues(DataTable table)
+    public static class ExtentionMethods
+    {
+        public static SquareMatrix ConvertToMatrix(this DataTable table)
         {
-            double[,] matrix = new double[5,5];
+            SquareMatrix matrix = new SquareMatrix { Values = new double[table.Rows.Count, table.Columns.Count] };
             for (int rowIndex = 0; rowIndex < table.Rows.Count; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < table.Columns.Count; columnIndex++)
                 {
-                    try
+                    string value = table.Rows[rowIndex][columnIndex].ToString();
+                    if (string.IsNullOrEmpty(value))
                     {
-                        matrix[rowIndex, columnIndex] = double.Parse(table.Rows[rowIndex][columnIndex].ToString());
+                        throw new Exception($"Пустое значение в ячейке [{rowIndex + 1},{columnIndex + 1}]");
                     }
-                    catch
+                    if (!double.TryParse(value, out matrix.Values[rowIndex, columnIndex]))
                     {
-                        throw new ArgumentException(string.Format("Некорректное значение в ячейке [{0},{1}]", rowIndex + 1, columnIndex + 1));
+                        throw new Exception($"Некорректное значение в ячейке [{rowIndex + 1},{columnIndex + 1}]");
                     }
                 }
             }
             return matrix;
         }
 
-        public static DataTable MatrixValuesToDataTable(SquareMatrix matrix)
+        public static DataTable ConvertToDataTable(this SquareMatrix matrix)
         {
             DataTable table = new DataTable();
             for (int rowIndex = 0; rowIndex < matrix.rank; rowIndex++)
@@ -108,25 +112,18 @@ namespace Q1
             return table;
         }
 
-        public static DataTable CreateUIInputTable(DataTable table = null)
+        public static DataTable InitUIDataTable(this DataTable table)
         {
-            if (table is null)
+            for (int rowIndex = 0; rowIndex < 5; rowIndex++)
             {
-                table = new DataTable();
-                for (int rowIndex = 0; rowIndex < 5; rowIndex++)
-                {
-                    table.Rows.Add();
-                    table.Columns.Add();
-                }
+                table.Rows.Add();
+                table.Columns.Add();
             }
             for (int rowIndex = 0; rowIndex < 5; rowIndex++)
             {
                 for (int columnIndex = 0; columnIndex < 5; columnIndex++)
                 {
-                    if (table.Rows[rowIndex][columnIndex] is null)
-                    {
-                        table.Rows[rowIndex][columnIndex] = "";
-                    }
+                    table.Rows[rowIndex][columnIndex] = "";
                 }
             }
             return table;

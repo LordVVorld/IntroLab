@@ -28,151 +28,113 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Label matrixLabel;
             System.Windows.Forms.Label geometricMeanLabel;
             System.Windows.Forms.Label maxRightLabel;
             System.Windows.Forms.Label minLeftLabel;
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.startButton = new System.Windows.Forms.Button();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.valuesEvaluationButton = new System.Windows.Forms.Button();
             this.asnwerBox = new System.Windows.Forms.GroupBox();
             this.geometricMeanBox = new System.Windows.Forms.TextBox();
             this.maxRightBox = new System.Windows.Forms.TextBox();
             this.minLeftBox = new System.Windows.Forms.TextBox();
-            this.inputPrincipleBox = new System.Windows.Forms.GroupBox();
-            this.manualInputButton = new System.Windows.Forms.RadioButton();
-            this.autoGenerationButton = new System.Windows.Forms.RadioButton();
             this.matrixGrid = new System.Windows.Forms.DataGridView();
-            this.squareMatrixBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            matrixLabel = new System.Windows.Forms.Label();
+            this.autoFillButton = new System.Windows.Forms.Button();
             geometricMeanLabel = new System.Windows.Forms.Label();
             maxRightLabel = new System.Windows.Forms.Label();
             minLeftLabel = new System.Windows.Forms.Label();
             this.asnwerBox.SuspendLayout();
-            this.inputPrincipleBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrixGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.squareMatrixBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // matrixLabel
-            // 
-            matrixLabel.AutoSize = true;
-            matrixLabel.Location = new System.Drawing.Point(12, 9);
-            matrixLabel.Name = "matrixLabel";
-            matrixLabel.Size = new System.Drawing.Size(51, 13);
-            matrixLabel.TabIndex = 8;
-            matrixLabel.Text = "Матрица";
             // 
             // geometricMeanLabel
             // 
             geometricMeanLabel.AutoSize = true;
-            geometricMeanLabel.Location = new System.Drawing.Point(6, 84);
+            geometricMeanLabel.Font = new System.Drawing.Font("Alegreya SC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            geometricMeanLabel.Location = new System.Drawing.Point(47, 147);
             geometricMeanLabel.Name = "geometricMeanLabel";
-            geometricMeanLabel.Size = new System.Drawing.Size(139, 13);
+            geometricMeanLabel.Size = new System.Drawing.Size(186, 22);
             geometricMeanLabel.TabIndex = 8;
-            geometricMeanLabel.Text = "Геометрическое среднее:";
+            geometricMeanLabel.Text = "Геометрическое среднее";
+            geometricMeanLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // maxRightLabel
             // 
             maxRightLabel.AutoSize = true;
-            maxRightLabel.Location = new System.Drawing.Point(6, 49);
+            maxRightLabel.Font = new System.Drawing.Font("Alegreya SC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            maxRightLabel.Location = new System.Drawing.Point(22, 89);
             maxRightLabel.Name = "maxRightLabel";
-            maxRightLabel.Size = new System.Drawing.Size(142, 26);
+            maxRightLabel.Size = new System.Drawing.Size(229, 22);
             maxRightLabel.TabIndex = 6;
-            maxRightLabel.Text = "Наибольшее число справа\r\nот побочной диагонали:";
+            maxRightLabel.Text = "Максимум справа от поб. диаг.";
+            maxRightLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // minLeftLabel
             // 
             minLeftLabel.AutoSize = true;
-            minLeftLabel.Location = new System.Drawing.Point(6, 20);
+            minLeftLabel.Font = new System.Drawing.Font("Alegreya SC", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            minLeftLabel.Location = new System.Drawing.Point(29, 32);
             minLeftLabel.Name = "minLeftLabel";
-            minLeftLabel.Size = new System.Drawing.Size(138, 26);
+            minLeftLabel.Size = new System.Drawing.Size(217, 22);
             minLeftLabel.TabIndex = 4;
-            minLeftLabel.Text = "Наименьшее число слева\r\nот побочной диагонали:";
+            minLeftLabel.Text = "Минимум слева от поб. диаг.";
+            minLeftLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // startButton
+            // valuesEvaluationButton
             // 
-            this.startButton.Location = new System.Drawing.Point(650, 57);
-            this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(75, 23);
-            this.startButton.TabIndex = 9;
-            this.startButton.Text = "Вычислить";
-            this.startButton.UseVisualStyleBackColor = true;
+            this.valuesEvaluationButton.BackColor = System.Drawing.Color.Gold;
+            this.valuesEvaluationButton.Font = new System.Drawing.Font("Alegreya SC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.valuesEvaluationButton.Location = new System.Drawing.Point(668, 9);
+            this.valuesEvaluationButton.Name = "valuesEvaluationButton";
+            this.valuesEvaluationButton.Size = new System.Drawing.Size(119, 41);
+            this.valuesEvaluationButton.TabIndex = 9;
+            this.valuesEvaluationButton.Text = "Рассчитать";
+            this.valuesEvaluationButton.UseVisualStyleBackColor = false;
             // 
             // asnwerBox
             // 
             this.asnwerBox.Controls.Add(this.geometricMeanBox);
             this.asnwerBox.Controls.Add(geometricMeanLabel);
             this.asnwerBox.Controls.Add(this.maxRightBox);
-            this.asnwerBox.Controls.Add(maxRightLabel);
             this.asnwerBox.Controls.Add(this.minLeftBox);
             this.asnwerBox.Controls.Add(minLeftLabel);
-            this.asnwerBox.Location = new System.Drawing.Point(527, 86);
+            this.asnwerBox.Controls.Add(maxRightLabel);
+            this.asnwerBox.Font = new System.Drawing.Font("Alegreya SC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.asnwerBox.Location = new System.Drawing.Point(518, 56);
             this.asnwerBox.Name = "asnwerBox";
-            this.asnwerBox.Size = new System.Drawing.Size(262, 110);
+            this.asnwerBox.Size = new System.Drawing.Size(269, 216);
             this.asnwerBox.TabIndex = 7;
             this.asnwerBox.TabStop = false;
-            this.asnwerBox.Text = "Ответы:";
+            this.asnwerBox.Text = "Ответы";
             // 
             // geometricMeanBox
             // 
-            this.geometricMeanBox.Location = new System.Drawing.Point(150, 81);
+            this.geometricMeanBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.geometricMeanBox.Location = new System.Drawing.Point(33, 172);
             this.geometricMeanBox.Name = "geometricMeanBox";
             this.geometricMeanBox.ReadOnly = true;
-            this.geometricMeanBox.Size = new System.Drawing.Size(100, 20);
+            this.geometricMeanBox.Size = new System.Drawing.Size(209, 29);
             this.geometricMeanBox.TabIndex = 9;
+            this.geometricMeanBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // maxRightBox
             // 
-            this.maxRightBox.Location = new System.Drawing.Point(150, 55);
+            this.maxRightBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.maxRightBox.Location = new System.Drawing.Point(33, 114);
             this.maxRightBox.Name = "maxRightBox";
             this.maxRightBox.ReadOnly = true;
-            this.maxRightBox.Size = new System.Drawing.Size(100, 20);
+            this.maxRightBox.Size = new System.Drawing.Size(209, 29);
             this.maxRightBox.TabIndex = 7;
+            this.maxRightBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // minLeftBox
             // 
-            this.minLeftBox.Location = new System.Drawing.Point(150, 26);
+            this.minLeftBox.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.minLeftBox.Location = new System.Drawing.Point(33, 57);
             this.minLeftBox.Name = "minLeftBox";
             this.minLeftBox.ReadOnly = true;
-            this.minLeftBox.Size = new System.Drawing.Size(100, 20);
+            this.minLeftBox.Size = new System.Drawing.Size(209, 29);
             this.minLeftBox.TabIndex = 5;
-            // 
-            // inputPrincipleBox
-            // 
-            this.inputPrincipleBox.Controls.Add(this.manualInputButton);
-            this.inputPrincipleBox.Controls.Add(this.autoGenerationButton);
-            this.inputPrincipleBox.Location = new System.Drawing.Point(527, 12);
-            this.inputPrincipleBox.Name = "inputPrincipleBox";
-            this.inputPrincipleBox.Size = new System.Drawing.Size(117, 68);
-            this.inputPrincipleBox.TabIndex = 6;
-            this.inputPrincipleBox.TabStop = false;
-            this.inputPrincipleBox.Text = "Принцип ввода:";
-            // 
-            // manualInputButton
-            // 
-            this.manualInputButton.AutoSize = true;
-            this.manualInputButton.Location = new System.Drawing.Point(6, 42);
-            this.manualInputButton.Name = "manualInputButton";
-            this.manualInputButton.Size = new System.Drawing.Size(87, 17);
-            this.manualInputButton.TabIndex = 1;
-            this.manualInputButton.TabStop = true;
-            this.manualInputButton.Text = "Ручной ввод";
-            this.manualInputButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.manualInputButton.UseVisualStyleBackColor = true;
-            // 
-            // autoGenerationButton
-            // 
-            this.autoGenerationButton.AutoSize = true;
-            this.autoGenerationButton.Checked = true;
-            this.autoGenerationButton.Location = new System.Drawing.Point(6, 19);
-            this.autoGenerationButton.Name = "autoGenerationButton";
-            this.autoGenerationButton.Size = new System.Drawing.Size(102, 17);
-            this.autoGenerationButton.TabIndex = 0;
-            this.autoGenerationButton.TabStop = true;
-            this.autoGenerationButton.Text = "Автогенерация";
-            this.autoGenerationButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.autoGenerationButton.UseVisualStyleBackColor = true;
+            this.minLeftBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // matrixGrid
             // 
@@ -180,22 +142,22 @@
             this.matrixGrid.AllowUserToDeleteRows = false;
             this.matrixGrid.AllowUserToResizeColumns = false;
             this.matrixGrid.AllowUserToResizeRows = false;
-            this.matrixGrid.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.matrixGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.matrixGrid.BackgroundColor = System.Drawing.Color.White;
             this.matrixGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             this.matrixGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.matrixGrid.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Mookmania", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.Format = "N3";
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.matrixGrid.DefaultCellStyle = dataGridViewCellStyle1;
-            this.matrixGrid.Location = new System.Drawing.Point(15, 25);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Mookmania", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.Format = "N3";
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.matrixGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            this.matrixGrid.Location = new System.Drawing.Point(12, 12);
             this.matrixGrid.Name = "matrixGrid";
             this.matrixGrid.RowHeadersVisible = false;
             this.matrixGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
@@ -207,49 +169,53 @@
             this.matrixGrid.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.matrixGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.matrixGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.matrixGrid.Size = new System.Drawing.Size(500, 500);
+            this.matrixGrid.Size = new System.Drawing.Size(500, 503);
             this.matrixGrid.TabIndex = 5;
             this.matrixGrid.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.ColumnAdded);
             // 
-            // squareMatrixBindingSource
+            // autoFillButton
             // 
-            this.squareMatrixBindingSource.DataSource = typeof(Q1.Q1Model.SquareMatrix);
+            this.autoFillButton.BackColor = System.Drawing.Color.Gold;
+            this.autoFillButton.Font = new System.Drawing.Font("Alegreya SC", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.autoFillButton.Location = new System.Drawing.Point(518, 9);
+            this.autoFillButton.Name = "autoFillButton";
+            this.autoFillButton.Size = new System.Drawing.Size(144, 41);
+            this.autoFillButton.TabIndex = 10;
+            this.autoFillButton.Text = "Автозаполнение";
+            this.autoFillButton.UseVisualStyleBackColor = false;
             // 
             // Q1View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 536);
-            this.Controls.Add(this.startButton);
-            this.Controls.Add(matrixLabel);
+            this.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.ClientSize = new System.Drawing.Size(799, 520);
+            this.Controls.Add(this.autoFillButton);
+            this.Controls.Add(this.valuesEvaluationButton);
             this.Controls.Add(this.asnwerBox);
-            this.Controls.Add(this.inputPrincipleBox);
             this.Controls.Add(this.matrixGrid);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximumSize = new System.Drawing.Size(815, 559);
+            this.MinimumSize = new System.Drawing.Size(815, 559);
             this.Name = "Q1View";
-            this.Text = "Q1Form";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Матричные вычисления";
             this.asnwerBox.ResumeLayout(false);
             this.asnwerBox.PerformLayout();
-            this.inputPrincipleBox.ResumeLayout(false);
-            this.inputPrincipleBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.matrixGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.squareMatrixBindingSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button startButton;
+        private System.Windows.Forms.Button valuesEvaluationButton;
         private System.Windows.Forms.GroupBox asnwerBox;
         private System.Windows.Forms.TextBox geometricMeanBox;
         private System.Windows.Forms.TextBox maxRightBox;
         private System.Windows.Forms.TextBox minLeftBox;
-        private System.Windows.Forms.GroupBox inputPrincipleBox;
-        private System.Windows.Forms.RadioButton manualInputButton;
-        private System.Windows.Forms.RadioButton autoGenerationButton;
         private System.Windows.Forms.DataGridView matrixGrid;
-        private System.Windows.Forms.BindingSource squareMatrixBindingSource;
+        private System.Windows.Forms.Button autoFillButton;
     }
 }
 

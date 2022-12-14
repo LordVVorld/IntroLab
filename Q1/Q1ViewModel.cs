@@ -9,20 +9,6 @@ namespace Q1
 {
     public class Q1ViewModel : ReactiveObject 
     {
-        private bool _manualInputed;
-        public bool ManualInputed
-        {
-            get => _manualInputed;
-            set => this.RaiseAndSetIfChanged(ref _manualInputed, value);
-        }
-
-        private int _matrixRank;
-        public int MatrixRank
-        {
-            get => _matrixRank;
-            set => this.RaiseAndSetIfChanged(ref _matrixRank, value);
-        }
-
         private double _minLeft;
         public double MinLeft
         {
@@ -44,26 +30,28 @@ namespace Q1
             set => this.RaiseAndSetIfChanged(ref _geometricMean, value);
         }
 
-        private DataTable _matrix = CreateUIInputTable();
-        public DataTable Matrix
+        private DataTable _matrixDataTable = new DataTable().InitUIDataTable();
+        public DataTable MatrixDataTable
         {
-            get => _matrix;
-            set => this.RaiseAndSetIfChanged(ref _matrix, value);
+            get => _matrixDataTable;
+            set => this.RaiseAndSetIfChanged(ref _matrixDataTable, value);
         }
 
         public Q1ViewModel()
 		{
-            Start = ReactiveCommand.Create(() =>
+            AutofillMatrix = ReactiveCommand.Create(() => MatrixDataTable = new SquareMatrix(new Random()).ConvertToDataTable());
+            AutofillMatrix.ThrownExceptions.Subscribe(error => MessageBox.Show(error.Message, "Внимание!"));
+
+            EvaluateValues = ReactiveCommand.Create(() =>
             {
-                var matrix = ManualInputed ? new SquareMatrix(Matrix) : new SquareMatrix();
-                Matrix = MatrixValuesToDataTable(matrix);
-                MinLeft = matrix.MinLeftOfAuxDiagonal();
-                MaxRight = matrix.MaxRightOfAuxDiagonal();
-                GeometricMean = GeometricMean(MaxRight, MinLeft);
+                MinLeft = MatrixDataTable.ConvertToMatrix().MinLeftOfAuxDiag();
+                MaxRight = MatrixDataTable.ConvertToMatrix().MaxRightOfAuxDiag();
+                GeometricMean = Math.Round(GeometricMean(MaxRight, MinLeft), 5);
             });
-            Start.ThrownExceptions.Subscribe(error => MessageBox.Show(error.Message, "Внимание!"));
+            EvaluateValues.ThrownExceptions.Subscribe(error => MessageBox.Show(error.Message, "Внимание!"));
         }
 
-        public ReactiveCommand<Unit, Unit> Start { get; private set; }
+        public ReactiveCommand<Unit, DataTable> AutofillMatrix { get; private set; }
+        public ReactiveCommand<Unit, Unit> EvaluateValues { get; private set; }
     }
 }

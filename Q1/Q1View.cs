@@ -10,12 +10,12 @@ namespace Q1
             InitializeComponent();
             this.WhenActivated(action =>
             {
-                action(this.Bind(ViewModel, vm => vm.ManualInputed, v => v.manualInputButton.Checked));
-                action(this.Bind(ViewModel, vm => vm.Matrix, v => v.matrixGrid.DataSource));
+                action(this.Bind(ViewModel, vm => vm.MatrixDataTable, v => v.matrixGrid.DataSource));
                 action(this.OneWayBind(ViewModel, vm => vm.MinLeft, v => v.minLeftBox.Text));
                 action(this.OneWayBind(ViewModel, vm => vm.MaxRight, v => v.maxRightBox.Text));
                 action(this.OneWayBind(ViewModel, vm => vm.GeometricMean, v => v.geometricMeanBox.Text));
-                action(this.BindCommand(ViewModel, vm => vm.Start, v => v.startButton));
+                action(this.BindCommand(ViewModel, vm => vm.AutofillMatrix, v => v.autoFillButton));
+                action(this.BindCommand(ViewModel, vm => vm.EvaluateValues, v => v.valuesEvaluationButton));
             });
             ViewModel = new Q1ViewModel();
         }
