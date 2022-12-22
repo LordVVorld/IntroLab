@@ -33,7 +33,14 @@ namespace Q2
                          .InvokeCommand(ViewModel.SelectedStudentChanged);
                 editModButton.Events().Click.Subscribe(e =>
                 { 
-                    new EditView(ViewModel.GroupList) { Owner = this }.Show();
+                    if (OwnedForms.Length == 0)
+                    {
+                        new EditView(ViewModel.GroupList) { Owner = this }.Show();
+                    }
+                    else
+                    {
+                        OwnedForms[0].Show();
+                    }
                     Hide();
                 });
             });

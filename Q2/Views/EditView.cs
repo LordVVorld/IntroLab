@@ -27,9 +27,14 @@ namespace Q2
                 a(this.Bind(ViewModel, vm => vm.StudentData, v => v.studentDataGrid.DataSource));
 
                 groupNameBox.Events()
-                            .TextChanged
+                            .Leave
                             .Select(args => groupNameBox.Text)
                             .InvokeCommand(ViewModel.GroupNameChanged);
+
+                studentDataGrid.Events()
+                               .CellValueChanged
+                               .Select(args => studentDataGrid.DataSource)
+                               .InvokeCommand(ViewModel.StudentDataChanged);
 
                 groupList.Events()
                          .SelectedIndexChanged
@@ -41,7 +46,24 @@ namespace Q2
                          .Select(_ => studentList.SelectedIndex)
                          .InvokeCommand(ViewModel.SelectedStudentChanged);
 
-                this.Events().Closed.Subscribe(e => Owner.Dispose());
+                saveButton.Events()
+                          .Click
+                          .Subscribe(args =>
+                          {
+                              var grList = new List<Group>();
+                              foreach (var group in ViewModel.GroupList)
+                              {
+                                  grList.Add(new Group(
+                                        group.Name,
+                                        group.Students.Select(student => (Student)student).ToList(),
+                                        group.Head
+                                      ));
+                              }
+                              (Owner as ReviewView).ViewModel.GroupList = grList;
+                              Close();
+                          });
+
+                this.Events().Closed.Subscribe(e => Owner.Show());
             });
         }
 

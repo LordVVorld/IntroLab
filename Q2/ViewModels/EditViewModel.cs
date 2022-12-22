@@ -8,6 +8,7 @@ using System.Reactive;
 using System;
 using static Q2.EditModel;
 using static Q2.ReviewModel;
+using System.Xml.Linq;
 
 namespace IntroLab
 {
@@ -100,16 +101,79 @@ namespace IntroLab
 
             GroupNameChanged = ReactiveCommand.Create<string>(name =>
             {
-                GroupList[GroupIndex].Name = name;
-                GroupList[GroupIndex].Students.ForEach(student =>
+                if (GroupList[GroupIndex].Name != name)
                 {
-                    student.GroupName = name;
-                });
+                    List<EditableGroup> result = new List<EditableGroup>();
+                    foreach (var group in GroupList)
+                    {
+                        result.Add(new EditableGroup(group.Name, group.Students, group.Head));
+                    }
+                    result[GroupIndex].Name = name;
+                    result[GroupIndex].Students.ForEach(student =>
+                    {
+                        student.GroupName = name;
+                    });
+                    var ind = GroupIndex;
+                    var stdInd = StudentIndex;
+                    GroupList = result;
+                    GroupIndex = ind;
+                    StudentIndex = stdInd;
+                }
+            });
+
+            StudentDataChanged = ReactiveCommand.Create<DataTable>(data =>
+            {
+                if (StudentList[StudentIndex].ToDataTable() != data)
+                {
+                    GroupList[GroupIndex].Students[StudentIndex].Id = data.Rows[0][0].ToString();
+                    GroupList[GroupIndex].Students[StudentIndex].Name = data.Rows[0][1].ToString();
+                    GroupList[GroupIndex].Students[StudentIndex].SurName = data.Rows[0][2].ToString();
+                    switch (data.Rows[0][3].ToString().ToLower())
+                    {
+                        case "да":
+                            {
+                                GroupList[GroupIndex].Students[StudentIndex].IsGroupHead = true;
+                            }
+                            break;
+                        case "нет":
+                            {
+                                GroupList[GroupIndex].Students[StudentIndex].IsGroupHead = false;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    var name = data.Rows[0][4].ToString();
+                    GroupList[GroupIndex].Students[StudentIndex].GroupName = name;
+                    List<EditableGroup> result = new List<EditableGroup>();
+                    foreach (var group in GroupList)
+                    {
+                        result.Add(new EditableGroup(group.Name, group.Students, group.Head));
+                    }
+                    result[GroupIndex].Name = name;
+                    result[GroupIndex].Students.ForEach(student =>
+                    {
+                        student.GroupName = name;
+                    });
+                    var ind = GroupIndex;
+                    var stdInd = StudentIndex;
+                    GroupList = result;
+                    GroupIndex = ind;
+                    List<EditableStudent> stList = new List<EditableStudent>();
+                    foreach (var student in GroupList[GroupIndex].Students)
+                    {
+                        stList.Add(new EditableStudent(student.Id, student.Name, student.SurName, student.IsGroupHead, student.GroupName));
+                    }
+                    StudentList = stList;
+                    StudentIndex = stdInd;
+                }
             });
         }
 
         public ReactiveCommand<int, Unit> SelectedGroupChanged { get; private set; }
         public ReactiveCommand<int, Unit> SelectedStudentChanged { get; private set; }
         public ReactiveCommand<string, Unit> GroupNameChanged { get; private set; }
+        public ReactiveCommand<DataTable, Unit> StudentDataChanged { get; private set; }
+        
     }
 }
